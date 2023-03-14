@@ -1,0 +1,110 @@
+﻿@model MVCMiniProject.Models.User
+    
+<div id="modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Details</h5>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('@Url.Action("Create","Admin")'">Close</button>
+            </div>
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RegisterId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.RegisterId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EmailId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EmailId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CityId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CityId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Password)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CountryId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CountryId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StateId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.StateId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CountryName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CountryName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StateName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.StateName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CityName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CityName)
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <h4>User</h4>
+    <hr />
+    
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.RegisterId  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+        

@@ -1,0 +1,258 @@
+﻿@model MVCMiniProject.Models.User
+
+@{
+    ViewBag.Title = "Create";
+}
+@{
+    ViewBag.Title = "Grid";
+}
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <head>
+
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#Country").change(function () {
+                    var cid = $(this).val();
+                    
+                    $("#StateId").empty();
+                    $.get("/Admin/GetState", {CountryId: cid }, function (data) {
+                        var v = "<option>--select--</option>";
+                        $.each(data, function (i, v1) {
+
+                            v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                        });
+                        $("#StateId").html(v);
+                    });
+                });
+            //});
+            //$(document).ready(function () {
+               /* $("#StateId").change(function () {*/
+                $("#StateId").change(function () {
+                    var sid = $(this).val();
+                    $("#CityId").empty();
+
+                    $.get("/Admin/GetCity", { StateId: sid }, function (data) {
+
+                        var v = "<option>--select--</option>";
+
+                        $.each(data, function (i, v1) {
+
+                            v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                        });
+                        $("#CityId").html(v);
+                    });
+                });
+            });
+            @*$(document).ready(function () {
+                $("#show").click(function () {
+                    document.location = '@Url.Action("Get_data","Admin")'
+
+
+
+                    });
+                });*@
+            $(document).ready(function () {
+                    $(".popup").click(function (e) {
+                        e.preventDefault();
+                         // Get the Details action URL
+                        var url = $(this).attr("href");
+                    $("#modal").remove();
+                    //Make the Ajax call and render modal when response is available
+                        $.get(url, function (data) {
+                        $(data).modal();
+                        });
+
+                    });
+
+                });
+
+        </script>
+        <link href="~/Content/Site.css" rel="stylesheet" />
+    </head>
+
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Country", null, "---Select Country---")
+                @*@Html.DropDownListFor(model => model.CountryId, new SelectList(ViewBag.Country, "Value", "Text"), "Select", new { @class = "form-control" })*@
+                @*<input type="submit" value="Search" class="btn btn-default" />*@
+                @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="StateId">
+                </select>
+                @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="CityId" name="CityID"></select>
+                @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+   
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <h2>Grid</h2>
+    <!--<div class="form-group">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("model.CountryId", (IEnumerable<SelectListItem>)ViewBag.Country, "Select Country", new { @class = "form-control" })-->
+    @*@Html.DropDownList("Country", null, "---Select Country---")*@
+    @*@Html.DropDownListFor(model => model.CountryId, new SelectList(ViewBag.Country, "Value", "Text"), "Select", new { @class = "form-control" })*@
+    <!--<input type="submit" value="Search" class="btn btn-default" />
+            @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-danger" })
+        </div>
+    </div>-->
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="StateId">
+                </select>
+                @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="CityId" name="CityID"></select>
+                @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+            <table class="table">
+                
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegisterId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailId)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Password)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CityName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.StateName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CountryName)
+                        </th>
+
+                        <th></th>
+
+                    </tr>
+                    @if (Model.LstUser.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="11">
+                                <h2 style="text-align:center">No Data Found</h2>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+
+                        foreach (var item in Model.LstUser)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RegisterId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailId)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Password)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CountryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StateName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CityName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.RegisterId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.RegisterId }, new { @class = "popup" })  |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.RegisterId }, new { onclick = "return confirm('Do You Want to Delete');" })
+                                </td>
+                            </tr>
+                        }
+                    }
+               
+            </table>
+    
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

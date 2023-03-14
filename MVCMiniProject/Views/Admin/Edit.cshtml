@@ -1,0 +1,142 @@
+﻿@model MVCMiniProject.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <head>
+
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#CountryId").change(function () {
+                    var cid = $(this).val();
+                    alert(cid);
+                    $("#StateId").empty();
+                    $.get("/Admin/GetState", {CountryId: cid }, function (data) {
+                        var v = "<option>--select--</option>";
+                        $.each(data, function (i, v1) {
+
+                            v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                        });
+                        $("#StateId").html(v);
+                    });
+                });
+            //});
+            //$(document).ready(function () {
+               /* $("#StateId").change(function () {*/
+                $("#StateId").change(function () {
+                    var sid = $(this).val();
+                    $("#CityId").empty();
+
+                    $.get("/Admin/GetCity", { StateId: sid }, function (data) {
+
+                        var v = "<option>--select--</option>";
+
+                        $.each(data, function (i, v1) {
+
+                            v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                        });
+                        $("#CityId").html(v);
+                    });
+                });
+            });
+            @*$(document).ready(function () {
+                $("#show").click(function () {
+                    document.location = '@Url.Action("Get_data","Admin")'
+
+
+
+                    });
+                });*@
+        </script>
+        <link href="~/Content/Site.css" rel="stylesheet" />
+    </head>
+
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegisterId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RegisterId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RegisterId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CountryId, new SelectList(ViewBag.Country, "Value", "Text"), "Select", new { @class = "form-control" })
+                
+                @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="StateId" name="StateId" class="form-control">
+                    <option value="ViewBag.StateId">@ViewBag.StateName</option>
+                </select>
+                
+                @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="CityId" name="CityId" class="form-control">
+                    <option value="ViewBag.CityId">@ViewBag.CityName</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

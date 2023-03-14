@@ -1,0 +1,77 @@
+﻿@model MVCMiniProject.Models.User
+
+@{
+    ViewBag.Title = "Grid";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h2>Grid</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RegisterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.LstUser)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisterId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RegisterId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RegisterId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RegisterId })
+            </td>
+        </tr>
+    }
+
+</table>
